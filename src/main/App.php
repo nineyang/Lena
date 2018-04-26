@@ -24,6 +24,7 @@ class App
         if (is_null($this->container)) {
             $this->container = new Container();
         }
+
     }
 
     /**
@@ -35,7 +36,7 @@ class App
     }
 
 
-    public function run()
+    public function start()
     {
 
     }
