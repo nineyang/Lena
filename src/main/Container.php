@@ -13,6 +13,8 @@ use Lena\src\main\Providers\Config;
 use Lena\src\main\Providers\Environment;
 use Lena\src\main\Providers\Route;
 use Psr\Container\ContainerInterface;
+use Closure;
+use Lena\src\main\Supports\Resolve;
 
 
 class Container implements ArrayAccess, ContainerInterface
@@ -23,6 +25,11 @@ class Container implements ArrayAccess, ContainerInterface
         'route' => Route::class,
         'env' => Environment::class
     ];
+
+    /**
+     * @var Resolve
+     */
+    protected $resolve;
 
     /**
      * first bind array
@@ -41,20 +48,34 @@ class Container implements ArrayAccess, ContainerInterface
      */
     public function __construct()
     {
+        $this->resolve = new Resolve($this);
         $this->initProviders();
     }
 
+    /**
+     * @param $key
+     * @param $bind
+     * @param bool $share
+     */
     public function bind($key, $bind, $share = false)
     {
-        ## todo
         $this->binds[$key] = compact("bind", "share");
     }
 
+    /**
+     * @param $key
+     * @param $bind
+     */
     public function singleton($key, $bind)
     {
         $this->bind($key, $bind, true);
     }
 
+    /**
+     * @param $key
+     * @param $default
+     * @return mixed
+     */
     protected function make($key, $default)
     {
         $bind = $this->binds[$key];
@@ -62,11 +83,16 @@ class Container implements ArrayAccess, ContainerInterface
             return $this->resolved[$key];
         }
 
-        #todo
+        $this->resolved[$key] = $this->resolve->handler($bind['bind']);
 
-        return $default;
+        return $this->resolved[$key] ?? $default;
     }
 
+    /**
+     * @param string $key
+     * @param null $default
+     * @return mixed|null
+     */
     public function get($key, $default = null)
     {
         if (!isset($this->binds[$key])) {

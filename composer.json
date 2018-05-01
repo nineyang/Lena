@@ -9,7 +9,13 @@
       "email": "nine.yang.coding@gmail.com"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "Lena\\": "Lena"
+    }
+  },
   "require": {
+    "php": ">=7.0",
     "twig/twig": "^2.4",
     "psr/container": "^1.0"
   },
