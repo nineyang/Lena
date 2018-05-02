@@ -17,14 +17,20 @@ class App
     protected $container = null;
 
     /**
-     * App constructor.
+     * @var null|string
      */
-    public function __construct()
-    {
-        if (is_null($this->container)) {
-            $this->container = new Container();
-        }
+    protected $basePath = __DIR__ . '/../../';
 
+    /**
+     * App constructor.
+     * @param null $basePath
+     */
+    public function __construct($basePath = null)
+    {
+        $this->bathPath = $basePath;
+        if (is_null($this->container)) {
+            $this->container = new Container($basePath);
+        }
     }
 
     /**

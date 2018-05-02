@@ -8,12 +8,58 @@
 
 namespace Lena\src\main\Providers;
 
-
-class Config implements ProviderInterface
+/**
+ * Class Config
+ * @package Lena\src\main\Providers
+ */
+class Config extends ProviderAbstract
 {
-    public function instantiate()
+
+    /**
+     * @var null
+     */
+    protected $configPath = null;
+
+    /**
+     * @var array
+     */
+    protected $cache = [];
+
+    /**
+     * @param $fileName
+     * @return mixed
+     */
+    public function get($fileName)
     {
-        
+        if (isset($this->cache[$fileName])) {
+            return $this->cache[$fileName];
+        }
+
+        $file = $this->configPath . $fileName . '.php';
+        if (file_exists($file)) {
+            $this->cache[$fileName] = require_once $file;
+        }
+
+        return $this->cache[$fileName];
+    }
+
+    /**
+     *
+     */
+    public function initialize()
+    {
+        if (is_null($this->configPath)) {
+            $this->configPath = $this->container->basePath . '/config/';
+        }
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->get($name);
     }
 
 }

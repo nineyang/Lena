@@ -93,6 +93,9 @@ class Resolve
      */
     private function resolveClass(ReflectionParameter $class)
     {
+        if ($class->getClass()->name == get_class($this->container)) {
+            return $this->container;
+        }
         return $class->getClass()->newInstance();
     }
 

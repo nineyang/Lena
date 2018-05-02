@@ -8,9 +8,9 @@ namespace Lena\src\main\Providers;
  * Author: Nine
  * Date: 2018/4/18
  */
-class Route implements ProviderInterface
+class Route extends ProviderAbstract
 {
-    public function instantiate()
+    public function initialize()
     {
         // TODO: Implement instantiate() method.
     }

@@ -15,5 +15,5 @@ namespace Lena\src\main\Providers;
  */
 interface ProviderInterface
 {
-    public function instantiate();
+    public function initialize();
 }

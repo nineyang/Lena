@@ -13,7 +13,6 @@ use dd\Dump;
 use Lena\src\main\Providers\Config;
 use Lena\src\main\Providers\Environment;
 use Lena\src\main\Providers\Route;
-use function Lena\src\main\Supports\dd;
 use Psr\Container\ContainerInterface;
 use Closure;
 use Lena\src\main\Supports\Resolve;
@@ -25,7 +24,7 @@ class Container implements ArrayAccess, ContainerInterface
     /**
      *
      */
-    const PROVIDER_INIT_METHOD = 'instantiate';
+    const PROVIDER_INIT_METHOD = 'initialize';
 
     /**
      * @var array
@@ -42,6 +41,11 @@ class Container implements ArrayAccess, ContainerInterface
     protected $resolve;
 
     /**
+     * @var
+     */
+    public $basePath;
+
+    /**
      * first bind array
      * @var array
      */
@@ -55,10 +59,12 @@ class Container implements ArrayAccess, ContainerInterface
 
     /**
      * Container constructor.
+     * @param $basePath
      */
-    public function __construct()
+    public function __construct($basePath = null)
     {
         $this->resolve = new Resolve($this);
+        $this->basePath = $basePath;
         $this->initDefaultProviders();
     }
 

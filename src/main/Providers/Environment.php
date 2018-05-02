@@ -9,9 +9,9 @@
 namespace Lena\src\main\Providers;
 
 
-class Environment implements ProviderInterface
+class Environment extends ProviderAbstract
 {
-    public function instantiate()
+    public function initialize()
     {
         // TODO: Implement instantiate() method.
     }
