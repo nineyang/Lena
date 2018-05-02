@@ -12,7 +12,10 @@
   "autoload": {
     "psr-4": {
       "Lena\\": "Lena"
-    }
+    },
+    "files": [
+      "src/main/Supports/functions.php"
+    ]
   },
   "require": {
     "php": ">=7.0",

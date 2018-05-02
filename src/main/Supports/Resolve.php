@@ -43,12 +43,11 @@ class Resolve
         if ($value instanceof Closure) {
             return $this->handlerClosure($value);
         }
-        $type = gettype($value);
-        if ($type == "string") {
-            return $value;
-        } else {
+        if (class_exists($value)) {
             return $this->handlerClass($value);
         }
+
+        return $value;
     }
 
     /**
@@ -70,6 +69,9 @@ class Resolve
     {
         $class = new ReflectionClass($class);
         $constructor = $class->getConstructor();
+        if (is_null($constructor)) {
+            return $class->newInstance();
+        }
         $params = $constructor->getParameters();
         return $class->newInstanceArgs($this->resolveDependencies($params));
     }

@@ -9,9 +9,11 @@
 namespace Lena\src\main;
 
 use ArrayAccess;
+use dd\Dump;
 use Lena\src\main\Providers\Config;
 use Lena\src\main\Providers\Environment;
 use Lena\src\main\Providers\Route;
+use function Lena\src\main\Supports\dd;
 use Psr\Container\ContainerInterface;
 use Closure;
 use Lena\src\main\Supports\Resolve;
@@ -20,6 +22,14 @@ use Lena\src\main\Supports\Resolve;
 class Container implements ArrayAccess, ContainerInterface
 {
 
+    /**
+     *
+     */
+    const PROVIDER_INIT_METHOD = 'instantiate';
+
+    /**
+     * @var array
+     */
     private $defaultProviders = [
         'config' => Config::class,
         'route' => Route::class,
@@ -49,7 +59,7 @@ class Container implements ArrayAccess, ContainerInterface
     public function __construct()
     {
         $this->resolve = new Resolve($this);
-        $this->initProviders();
+        $this->initDefaultProviders();
     }
 
     /**
@@ -76,7 +86,7 @@ class Container implements ArrayAccess, ContainerInterface
      * @param $default
      * @return mixed
      */
-    protected function make($key, $default)
+    protected function make($key, $default = null)
     {
         $bind = $this->binds[$key];
         if (isset($this->resolved[$key]) && $bind['share']) {
@@ -113,10 +123,14 @@ class Container implements ArrayAccess, ContainerInterface
     /**
      *
      */
-    public function initProviders()
+    public function initDefaultProviders()
     {
         foreach ($this->defaultProviders as $key => $provider) {
             $this->bind($key, $provider);
+            $provider = $this->make($key);
+            if (method_exists($provider, self::PROVIDER_INIT_METHOD)) {
+                $provider->{self::PROVIDER_INIT_METHOD}();
+            }
         }
     }
 

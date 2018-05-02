@@ -13,7 +13,7 @@ class Config implements ProviderInterface
 {
     public function instantiate()
     {
-        // TODO: Implement instantiate() method.
+        
     }
 
 }
