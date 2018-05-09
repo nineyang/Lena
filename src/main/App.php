@@ -31,6 +31,8 @@ class App
         if (is_null($this->container)) {
             $this->container = new Container($basePath);
         }
+        var_dump($this->container['env']->get('APP_NAME'));
+        exit();
     }
 
     /**

@@ -15,5 +15,9 @@ namespace Lena\src\main\Providers;
  */
 interface ProviderInterface
 {
+    /**
+     * 初始化的一些方法
+     * @return mixed
+     */
     public function initialize();
 }

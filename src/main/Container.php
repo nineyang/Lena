@@ -132,7 +132,7 @@ class Container implements ArrayAccess, ContainerInterface
     public function initDefaultProviders()
     {
         foreach ($this->defaultProviders as $key => $provider) {
-            $this->bind($key, $provider);
+            $this->singleton($key, $provider);
             $provider = $this->make($key);
             if (method_exists($provider, self::PROVIDER_INIT_METHOD)) {
                 $provider->{self::PROVIDER_INIT_METHOD}();

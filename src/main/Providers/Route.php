@@ -12,6 +12,6 @@ class Route extends ProviderAbstract
 {
     public function initialize()
     {
-        // TODO: Implement instantiate() method.
+
     }
 }

@@ -35,6 +35,11 @@ class Config extends ProviderAbstract
             return $this->cache[$fileName];
         }
 
+        # 匹配目录
+        if (false !== strpos($fileName, '.')) {
+            $fileName = str_replace('.', '/', $fileName);
+        }
+
         $file = $this->configPath . $fileName . '.php';
         if (file_exists($file)) {
             $this->cache[$fileName] = require_once $file;
