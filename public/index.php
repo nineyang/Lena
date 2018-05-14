@@ -5,7 +5,6 @@
  * Author: Nine
  * Date: 2018/4/15
  */
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 spl_autoload_register(function ($class) {
