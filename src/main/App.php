@@ -27,6 +27,7 @@ class App
      */
     public function __construct($basePath = null)
     {
+        $this->initWhoops();
         $this->bathPath = $basePath;
         if (is_null($this->container)) {
             $this->container = new Container($basePath);
@@ -39,6 +40,16 @@ class App
     public function getContainer()
     {
         return $this->container;
+    }
+
+    /**
+     *
+     */
+    protected function initWhoops()
+    {
+        $whoops = new \Whoops\Run;
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops->register();
     }
 
 

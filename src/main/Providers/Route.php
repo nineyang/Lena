@@ -3,6 +3,7 @@
 namespace Lena\src\main\Providers;
 
 use Lena\src\main\Supports\Router;
+use Exception;
 
 /**
  * Project: Lena
@@ -47,7 +48,7 @@ class Route extends ProviderAbstract
                 if ($file != '.' && $file != '..') {
                     $info = pathinfo($file);
                     $closure = require_once $this->routePath . $file;
-                    $closure($this->router , $info['filename']);
+                    $closure($this->router, $info['filename']);
                 }
             }
             closedir($dh);
