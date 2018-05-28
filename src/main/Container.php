@@ -72,19 +72,22 @@ class Container implements ArrayAccess, ContainerInterface
      * @param $key
      * @param $bind
      * @param bool $share
+     * @return mixed
      */
     public function bind($key, $bind, $share = false)
     {
         $this->binds[$key] = compact("bind", "share");
+        return $this->make($key , $bind);
     }
 
     /**
      * @param $key
      * @param $bind
+     * @return mixed
      */
     public function singleton($key, $bind)
     {
-        $this->bind($key, $bind, true);
+        return $this->bind($key, $bind, true);
     }
 
     /**
@@ -132,8 +135,7 @@ class Container implements ArrayAccess, ContainerInterface
     public function initDefaultProviders()
     {
         foreach ($this->defaultProviders as $key => $provider) {
-            $this->singleton($key, $provider);
-            $provider = $this->make($key);
+            $provider = $this->singleton($key, $provider);
             if (method_exists($provider, self::PROVIDER_INIT_METHOD)) {
                 $provider->{self::PROVIDER_INIT_METHOD}();
             }

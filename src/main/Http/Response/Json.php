@@ -9,7 +9,7 @@
 namespace Lena\src\main\Http\Response;
 
 
-class Json implements ResponseInterface
+class Json extends Response
 {
     public function response()
     {

@@ -48,6 +48,14 @@ class Router
         $this->routes[$this->lastMethod][$this->lastUri]['middleware'] = $middleware;
     }
 
+    protected function wrapRouter($uri)
+    {
+        var_dump($uri);
+        $params = preg_replace_callback("/\{w+\}/" , function ($match){
+            var_dump($match);
+        } , $uri);
+    }
+
     /**
      * @param $method
      * @param $arguments
@@ -63,6 +71,7 @@ class Router
         $this->routes[$method][$uri] = ['path' => $path];
         $this->lastUri = $uri;
         $this->lastMethod = $method;
+        $this->wrapRouter($uri);
 
         return $this;
     }

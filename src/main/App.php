@@ -9,6 +9,8 @@
 
 namespace Lena\src\main;
 
+use Lena\src\main\Http\Request;
+
 class App
 {
     /**
@@ -55,6 +57,8 @@ class App
 
     public function start()
     {
+        $request = $this->container->bind('request' , Request::class);
+
 
     }
 }

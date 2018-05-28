@@ -8,4 +8,7 @@
 
 return function (\Lena\src\main\Supports\Router $router, $prefix) {
     $router->get('/', 'aaa')->middleware('bbb');
+    $router->get('/{name}', 'aaa')->middleware('bbb');
+
+
 };

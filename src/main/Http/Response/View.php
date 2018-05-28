@@ -9,7 +9,7 @@
 namespace Lena\src\main\Http\Response;
 
 
-class View implements ResponseInterface
+class View extends Response
 {
     public function response()
     {

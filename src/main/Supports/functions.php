@@ -6,8 +6,33 @@
  * Date: 2018/5/14
  */
 
-function dd($value)
-{
-    \dd\Dump::dump($value);
-    exit();
+
+if (!function_exists("app")) {
+    function app($value)
+    {
+
+    }
+}
+
+
+if (!function_exists("dd")) {
+    function dd($value)
+    {
+        \dd\Dump::dump($value);
+        exit();
+    }
+}
+
+if (!function_exists("view")) {
+    function view($template, ...$values)
+    {
+
+    }
+}
+
+if (!function_exists("json")) {
+    function json(array $value)
+    {
+
+    }
 }
