@@ -58,7 +58,9 @@ class App
     public function start()
     {
         $request = $this->container->bind('request' , Request::class);
-
-
+        $route = $this->container['route'];
+        $res = $route->match($request->getMethod() , $request->getPath());
+        var_dump($res);
+        ## todo 注入
     }
 }

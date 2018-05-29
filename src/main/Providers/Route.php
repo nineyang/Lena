@@ -19,7 +19,7 @@ class Route extends ProviderAbstract
     protected $routePath = null;
 
     /**
-     * @var null
+     * @var Router
      */
     protected $router = null;
 
@@ -33,9 +33,49 @@ class Route extends ProviderAbstract
         $this->handler();
     }
 
-    public function match()
+    /**
+     * @param $method
+     * @param $path
+     * @return mixed
+     */
+    public function match($method, $path)
     {
+        $routers = $this->getRouters(strtolower($method));
+        foreach ($routers as $route => $value) {
+            if ($path == $route || $this->pregMatch($route, $path, $value)) {
+                return $value;
+            }
+        }
+        ## todo return not matched
+    }
 
+    /**
+     * @param $route
+     * @param $path
+     * @return bool
+     */
+    protected function pregMatch($route, $path, &$result)
+    {
+        $length = strlen($route);
+
+        if ($length <= 1 || substr($route, $length - 1, 1) != '/') {
+            return false;
+        }
+        if (preg_match_all($route, $path, $matches)) {
+            array_shift($matches);
+            $result['matched'] = $matches;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param null $method
+     * @return array
+     */
+    public function getRouters($method = null)
+    {
+        return $this->router->getRoutes($method);
     }
 
     /**

@@ -25,6 +25,11 @@ class Router
     /**
      * @var array
      */
+    public $replaces = [];
+
+    /**
+     * @var array
+     */
     protected $methods = ['get', 'put', 'delete', 'post'];
 
     /**
@@ -45,15 +50,81 @@ class Router
         if (is_string($middleware)) {
             $middleware = [$middleware];
         }
-        $this->routes[$this->lastMethod][$this->lastUri]['middleware'] = $middleware;
+        $this->routes[$this->lastMethod][$this->getLastUri()]['middleware'] = $middleware;
     }
 
+    /**
+     * @param $uri
+     * @return array
+     */
     protected function wrapRouter($uri)
     {
-        var_dump($uri);
-        $params = preg_replace_callback("/\{w+\}/" , function ($match){
-            var_dump($match);
-        } , $uri);
+        $res = [];
+        $newUri = preg_replace_callback('/{(\w+)}/i', function ($match) use ($uri, &$res) {
+            $res[] = $match[1];
+            return '(\w+)';
+        }, $uri);
+        if ($res) {
+            $newUri = '/' . str_replace('/', '\/', $newUri) . '/';
+        }
+        $this->setReplace($uri, $newUri);
+        return $res;
+    }
+
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function setRoute(array $params)
+    {
+        $this->routes[$this->lastMethod][$this->getLastUri()] = $params;
+        return $this;
+    }
+
+    /**
+     * @param $method
+     * @return array|mixed
+     */
+    public function getRoutes($method)
+    {
+        return $method ? $this->routes[$method] : $this->routes;
+    }
+
+    /**
+     * @param $old
+     * @param $new
+     * @return $this
+     */
+    public function setReplace($old, $new)
+    {
+        $this->replaces[$old] = $new;
+        return $this;
+    }
+
+    /**
+     * @param $uri
+     * @return bool
+     */
+    public function existsReplace($uri)
+    {
+        return isset($this->replaces[$uri]);
+    }
+
+    /**
+     * @param $uri
+     * @return mixed
+     */
+    public function getReplace($uri)
+    {
+        return $this->replaces[$uri];
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getLastUri()
+    {
+        return $this->existsReplace($this->lastUri) ? $this->getReplace($this->lastUri) : $this->lastUri;
     }
 
     /**
@@ -68,10 +139,10 @@ class Router
             throw new Exception("this method is not defined");
         }
         list($uri, $path) = $arguments;
-        $this->routes[$method][$uri] = ['path' => $path];
         $this->lastUri = $uri;
         $this->lastMethod = $method;
-        $this->wrapRouter($uri);
+        $params = $this->wrapRouter($uri);
+        $this->setRoute(['controller' => $path, 'params' => $params]);
 
         return $this;
     }
