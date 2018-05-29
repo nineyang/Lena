@@ -88,7 +88,8 @@ class Route extends ProviderAbstract
                 if ($file != '.' && $file != '..') {
                     $info = pathinfo($file);
                     $closure = require_once $this->routePath . $file;
-                    $closure($this->router, $info['filename']);
+                    $closure($this->router, '/' . $info['filename']);
+                    $this->router->emptyPrefix();
                 }
             }
             closedir($dh);

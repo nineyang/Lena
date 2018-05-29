@@ -7,7 +7,10 @@
  */
 
 return function (\Lena\src\main\Supports\Router $router, $prefix) {
-    $router->get('/', 'aaa')->middleware('bbb');
+    $router->prefix($prefix);
+
+
+    $router->get('/', 'Index@index')->middleware('bbb');
     $router->get('/{name}/{id}', 'aaa')->middleware('aa');
 
 

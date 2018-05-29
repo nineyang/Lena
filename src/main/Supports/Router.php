@@ -18,6 +18,11 @@ class Router
 {
 
     /**
+     * web不需要前缀，其他的前缀是文件名
+     */
+    const EXCEPT_PREFIX = '/web';
+
+    /**
      * @var array
      */
     public $routes = [];
@@ -33,6 +38,11 @@ class Router
     protected $methods = ['get', 'put', 'delete', 'post'];
 
     /**
+     * @var
+     */
+    protected $prefix = '';
+
+    /**
      * @var null
      */
     protected $lastUri = null;
@@ -44,6 +54,7 @@ class Router
 
     /**
      * @param $middleware
+     * @return $this
      */
     public function middleware($middleware)
     {
@@ -51,6 +62,31 @@ class Router
             $middleware = [$middleware];
         }
         $this->routes[$this->lastMethod][$this->getLastUri()]['middleware'] = $middleware;
+
+        return $this;
+    }
+
+    /**
+     * @param $prefix
+     * @return $this
+     */
+    public function prefix($prefix)
+    {
+        if ($prefix != self::EXCEPT_PREFIX) {
+            $this->prefix = $prefix;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function emptyPrefix()
+    {
+        $this->prefix = "";
+
+        return $this;
     }
 
     /**
@@ -60,6 +96,7 @@ class Router
     protected function wrapRouter($uri)
     {
         $res = [];
+        $uri = $this->prefix . $uri;
         $newUri = preg_replace_callback('/{(\w+)}/i', function ($match) use ($uri, &$res) {
             $res[] = $match[1];
             return '(\w+)';
@@ -139,7 +176,7 @@ class Router
             throw new Exception("this method is not defined");
         }
         list($uri, $path) = $arguments;
-        $this->lastUri = $uri;
+        $this->lastUri = $this->prefix . $uri;
         $this->lastMethod = $method;
         $params = $this->wrapRouter($uri);
         $this->setRoute(['controller' => $path, 'params' => $params]);
