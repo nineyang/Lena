@@ -62,19 +62,7 @@ class Request implements RequestInterface, ArrayAccess
      */
     public function all()
     {
-        return $_REQUEST;
-//        if ($this->getMethod() == 'POST') {
-//
-//        } elseif ()
-//            if ($this->hasHeader("QUERY_STRING")) {
-//                $params = explode("&", $this->getHeader("QUERY_STRING"));
-//                foreach ($params as $param) {
-//                    @list($key, $value) = explode("=", $param);
-//                    $return[$key] = $value;
-//                }
-//            }
-//
-//        return $return;
+        return array_merge($_REQUEST , $this->params);
     }
 
     /**

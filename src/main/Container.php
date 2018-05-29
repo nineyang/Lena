@@ -163,6 +163,7 @@ class Container implements ArrayAccess, ContainerInterface
     /**
      * @param mixed $offset
      * @param mixed $value
+     * @return mixed
      */
     public function offsetSet($offset, $value)
     {

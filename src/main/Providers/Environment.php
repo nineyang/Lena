@@ -12,7 +12,7 @@ namespace Lena\main\Providers;
  * Class Environment
  * @package Lena\main\Providers
  */
-class Environment extends ProviderAbstract
+class Environment extends AbstractProvider
 {
 
     /**

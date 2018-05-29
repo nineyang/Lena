@@ -10,9 +10,13 @@
 namespace Lena\main;
 
 use Lena\main\Http\Request;
+use Lena\main\Http\Response\Response;
 
 class App
 {
+
+    const BASE_NAMESPACE = 'Lena';
+
     /**
      * @var Container|null
      */
@@ -30,7 +34,7 @@ class App
     public function __construct($basePath = null)
     {
         $this->initWhoops();
-        $this->bathPath = $basePath;
+        $this->basePath = $basePath;
         if (is_null($this->container)) {
             $this->container = new Container($basePath);
         }
@@ -61,15 +65,21 @@ class App
         $route = $this->container['route'];
         $res = $route->match($request->getMethod(), $request->getPath());
 
-        $this->parse($res);
-        var_dump($res);
+        $this->parseAndInvoke($res, $request);
         ## todo 注入
     }
 
-    protected function parse(array $info)
+    protected function parseAndInvoke(array $info, Request $request)
     {
         if (isset($info['middleware'])) {
-
+            $middlewares = $info['middleware'];
+            $middlewareSpace = str_replace('/', '\\', self::BASE_NAMESPACE . '/app/Middlewares/');
+            foreach ($middlewares as $middleware) {
+                $class = $middlewareSpace . $middleware;
+                if (class_exists($class)) {
+                    $class::handler($request);
+                }
+            }
         }
     }
 }

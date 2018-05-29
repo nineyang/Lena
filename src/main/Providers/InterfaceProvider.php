@@ -13,7 +13,7 @@ namespace Lena\main\Providers;
  * Interface ProviderInterface
  * @package Lena\main\Providers
  */
-interface ProviderInterface
+interface InterfaceProvider
 {
     /**
      * 初始化的一些方法

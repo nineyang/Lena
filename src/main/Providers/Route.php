@@ -11,7 +11,7 @@ use Exception;
  * Author: Nine
  * Date: 2018/4/18
  */
-class Route extends ProviderAbstract
+class Route extends AbstractProvider
 {
     /**
      * @var null

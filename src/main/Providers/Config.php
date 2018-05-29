@@ -12,7 +12,7 @@ namespace Lena\main\Providers;
  * Class Config
  * @package Lena\main\Providers
  */
-class Config extends ProviderAbstract
+class Config extends AbstractProvider
 {
 
     /**

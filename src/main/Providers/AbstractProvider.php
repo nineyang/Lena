@@ -15,7 +15,7 @@ use Lena\main\Container;
  * Class ProviderAbstract
  * @package Lena\main\Providers
  */
-abstract class ProviderAbstract implements ProviderInterface
+abstract class AbstractProvider implements InterfaceProvider
 {
     /**
      * @var Container
