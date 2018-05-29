@@ -6,12 +6,12 @@
  * Date: 2018/4/18
  */
 
-return function (\Lena\src\main\Supports\Router $router, $prefix) {
+return function (\Lena\main\Supports\Router $router, $prefix) {
     $router->prefix($prefix);
 
 
-    $router->get('/', 'Index@index')->middleware('bbb');
-    $router->get('/{name}/{id}', 'aaa')->middleware('aa');
+    $router->get('/', 'Index@index')->middleware('Demo');
+    $router->get('/{name}/{id}', 'aaa')->middleware('Demo');
 
 
 };

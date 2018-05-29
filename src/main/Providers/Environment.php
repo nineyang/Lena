@@ -6,11 +6,11 @@
  * Date: 2018/4/19
  */
 
-namespace Lena\src\main\Providers;
+namespace Lena\main\Providers;
 
 /**
  * Class Environment
- * @package Lena\src\main\Providers
+ * @package Lena\main\Providers
  */
 class Environment extends ProviderAbstract
 {

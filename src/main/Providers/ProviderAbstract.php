@@ -6,14 +6,14 @@
  * Date: 2018/5/2
  */
 
-namespace Lena\src\main\Providers;
+namespace Lena\main\Providers;
 
 
-use Lena\src\main\Container;
+use Lena\main\Container;
 
 /**
  * Class ProviderAbstract
- * @package Lena\src\main\Providers
+ * @package Lena\main\Providers
  */
 abstract class ProviderAbstract implements ProviderInterface
 {

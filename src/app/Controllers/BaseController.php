@@ -2,7 +2,7 @@
 
 namespace Lena\app\Controllers;
 
-use Lena\src\main\App;
+use Lena\main\App;
 
 /**
  * Project: Lena

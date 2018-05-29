@@ -6,13 +6,13 @@
  * Date: 2018/5/14
  */
 
-namespace Lena\src\main\Supports;
+namespace Lena\main\Supports;
 
 use Exception;
 
 /**
  * Class Router
- * @package Lena\src\main\Supports
+ * @package Lena\main\Supports
  */
 class Router
 {

@@ -6,16 +6,16 @@
  * Date: 2018/4/18
  */
 
-namespace Lena\src\main;
+namespace Lena\main;
 
 use ArrayAccess;
 use dd\Dump;
-use Lena\src\main\Providers\Config;
-use Lena\src\main\Providers\Environment;
-use Lena\src\main\Providers\Route;
+use Lena\main\Providers\Config;
+use Lena\main\Providers\Environment;
+use Lena\main\Providers\Route;
 use Psr\Container\ContainerInterface;
 use Closure;
-use Lena\src\main\Supports\Resolve;
+use Lena\main\Supports\Resolve;
 
 
 class Container implements ArrayAccess, ContainerInterface

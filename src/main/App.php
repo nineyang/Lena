@@ -7,9 +7,9 @@
  * Date: 2018/4/17
  */
 
-namespace Lena\src\main;
+namespace Lena\main;
 
-use Lena\src\main\Http\Request;
+use Lena\main\Http\Request;
 
 class App
 {
@@ -57,10 +57,19 @@ class App
 
     public function start()
     {
-        $request = $this->container->bind('request' , Request::class);
+        $request = $this->container->bind('request', Request::class);
         $route = $this->container['route'];
-        $res = $route->match($request->getMethod() , $request->getPath());
+        $res = $route->match($request->getMethod(), $request->getPath());
+
+        $this->parse($res);
         var_dump($res);
         ## todo 注入
+    }
+
+    protected function parse(array $info)
+    {
+        if (isset($info['middleware'])) {
+
+        }
     }
 }

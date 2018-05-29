@@ -6,12 +6,12 @@
  * Date: 2018/4/19
  */
 
-namespace Lena\src\main\Providers;
+namespace Lena\main\Providers;
 
 
 /**
  * Interface ProviderInterface
- * @package Lena\src\main\Providers
+ * @package Lena\main\Providers
  */
 interface ProviderInterface
 {

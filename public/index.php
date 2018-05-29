@@ -7,10 +7,5 @@
  */
 require_once __DIR__ . '/../vendor/autoload.php';
 
-spl_autoload_register(function ($class) {
-    $path = __DIR__ . '/../../' . str_replace("\\", "/", $class) . '.php';
-    if (file_exists($path)) require_once $path;
-});
-
-$app = new \Lena\src\main\App(realpath(__DIR__ . '/../'));
+$app = new \Lena\main\App(realpath(__DIR__ . '/../'));
 $app->start();

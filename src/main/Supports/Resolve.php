@@ -1,9 +1,9 @@
 <?php
 
-namespace Lena\src\main\Supports;
+namespace Lena\main\Supports;
 
 use Closure;
-use Lena\src\main\Container;
+use Lena\main\Container;
 use Psr\Container\ContainerInterface;
 use ReflectionMethod;
 use ReflectionClass;

@@ -6,7 +6,7 @@
  * Date: 2018/4/21
  */
 
-namespace Lena\src\main\Http\Response;
+namespace Lena\main\Http\Response;
 
 
 class View extends Response

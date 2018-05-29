@@ -6,7 +6,7 @@
  * Date: 2018/4/16
  */
 
-namespace Lena\src\main\Http;
+namespace Lena\main\Http;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;

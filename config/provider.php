@@ -7,6 +7,6 @@
  */
 
 return [
-    'route' => \Lena\src\main\Providers\Route::class,
-    'config' => \Lena\src\main\Providers\Config::class
+    'route' => \Lena\main\Providers\Route::class,
+    'config' => \Lena\main\Providers\Config::class
 ];

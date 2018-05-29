@@ -1,8 +1,8 @@
 <?php
 
-namespace Lena\src\main\Providers;
+namespace Lena\main\Providers;
 
-use Lena\src\main\Supports\Router;
+use Lena\main\Supports\Router;
 use Exception;
 
 /**
