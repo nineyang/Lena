@@ -138,7 +138,8 @@ class Resolve
         if ($class->getClass()->name == get_class($this->container)) {
             return $this->container;
         }
-        return $class->getClass()->newInstance();
+        
+        return $this->container[$class->getName()];
     }
 
     /**

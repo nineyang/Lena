@@ -25,7 +25,7 @@ class Index extends BaseController
 
     public function user(Request $request, $name)
     {
-        var_dump($request);
+        var_dump($request->get('name'));
         return $name;
     }
 }

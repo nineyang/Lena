@@ -62,7 +62,7 @@ class App
 
     public function start()
     {
-        $request = $this->container->bind('request', Request::class);
+        $request = $this->container->singleton('request', Request::class);
         $route = $this->container['route'];
         $res = $route->match($request->getMethod(), $request->getPath());
         if (is_null($res)) {
@@ -87,9 +87,9 @@ class App
         list($controller, $action) = explode("@", $info['controller']);
         if ($controllerClass = Util::checkClassExists($controller, 'controllers')) {
             if (method_exists($controllerClass, $action)) {
-                $res = $this->container->getResolve()->handler($controllerClass, $action, array_combine($info['params'],
+                $response = $this->container->getResolve()->handler($controllerClass, $action, array_combine($info['params'],
                     $info['matched']));
-                var_dump($res);
+                var_dump($response);
             }
         }
     }
