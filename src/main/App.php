@@ -11,6 +11,7 @@ namespace Lena\main;
 
 use Lena\main\Http\Request;
 use Lena\main\Http\Response\Response;
+use Lena\main\Supports\Util;
 
 class App
 {
@@ -33,7 +34,7 @@ class App
      */
     public function __construct($basePath = null)
     {
-        $this->initWhoops();
+//        $this->initWhoops();
         $this->basePath = $basePath;
         if (is_null($this->container)) {
             $this->container = new Container($basePath);
@@ -64,6 +65,9 @@ class App
         $request = $this->container->bind('request', Request::class);
         $route = $this->container['route'];
         $res = $route->match($request->getMethod(), $request->getPath());
+        if (is_null($res)) {
+            # todo 404
+        }
 
         $this->parseAndInvoke($res, $request);
         ## todo 注入
@@ -73,12 +77,19 @@ class App
     {
         if (isset($info['middleware'])) {
             $middlewares = $info['middleware'];
-            $middlewareSpace = str_replace('/', '\\', self::BASE_NAMESPACE . '/app/Middlewares/');
             foreach ($middlewares as $middleware) {
-                $class = $middlewareSpace . $middleware;
-                if (class_exists($class)) {
+                if ($class = Util::checkClassExists($middleware, 'middlewares')) {
                     $class::handler($request);
                 }
+            }
+        }
+
+        list($controller, $action) = explode("@", $info['controller']);
+        if ($controllerClass = Util::checkClassExists($controller, 'controllers')) {
+            if (method_exists($controllerClass, $action)) {
+                $res = $this->container->getResolve()->handler($controllerClass, $action, array_combine($info['params'],
+                    $info['matched']));
+                var_dump($res);
             }
         }
     }

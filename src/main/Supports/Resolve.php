@@ -26,6 +26,11 @@ class Resolve
     protected $container;
 
     /**
+     * @var array
+     */
+    protected $args = [];
+
+    /**
      * Resolve constructor.
      * @param ContainerInterface $container
      */
@@ -35,11 +40,35 @@ class Resolve
     }
 
     /**
+     * @param $key
+     * @return bool
+     */
+    public function existsArg($key)
+    {
+        return isset($this->args[$key]);
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function getArg($key)
+    {
+        return $this->args[$key];
+    }
+
+    /**
      * @param $value
+     * @param null $method
+     * @param array $args
      * @return mixed|object
      */
-    public function handler($value)
+    public function handler($value, $method = null, $args = [])
     {
+        $this->args = $args;
+        if (!is_null($method)) {
+            return $this->handlerMethod($value, $method);
+        }
         if ($value instanceof Closure) {
             return $this->handlerClosure($value);
         }
@@ -59,6 +88,19 @@ class Resolve
         $methodClass = new ReflectionMethod(null, $closure);
         $params = $methodClass->getParameters();
         return $methodClass->invokeArgs(null, $this->resolveDependencies($params));
+    }
+
+    /**
+     * @param $className
+     * @param $method
+     * @return mixed
+     */
+    protected function handlerMethod($className, $method)
+    {
+        $methodClass = new ReflectionMethod($className, $method);
+        $params = $methodClass->getParameters();
+        $class = $this->handlerClass($className);
+        return $methodClass->invokeArgs($class, $this->resolveDependencies($params));
     }
 
     /**
@@ -106,6 +148,10 @@ class Resolve
      */
     private function resolveOther(ReflectionParameter $param)
     {
+        if ($this->existsArg($param->name)) {
+            return $this->getArg($param->name);
+        }
+
         if ($param->isDefaultValueAvailable()) {
             return $param->getDefaultValue();
         }

@@ -11,7 +11,8 @@ return function (\Lena\main\Supports\Router $router, $prefix) {
 
 
     $router->get('/', 'Index@index')->middleware(['Demo' , 'Test']);
-    $router->get('/{name}/{id}', 'aaa')->middleware('Demo');
+    $router->get('/{name}', 'Index@user');
+    $router->get('/{name}/{age}', 'Index@info');
 
 
 };

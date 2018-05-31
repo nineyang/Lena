@@ -63,7 +63,7 @@ class Route extends AbstractProvider
         }
         if (preg_match_all($route, $path, $matches)) {
             array_shift($matches);
-            $result['matched'] = $matches;
+            $result['matched'] = array_column($matches , 0);
             return true;
         }
         return false;

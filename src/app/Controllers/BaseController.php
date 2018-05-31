@@ -2,7 +2,7 @@
 
 namespace Lena\app\Controllers;
 
-use Lena\main\App;
+use Lena\main\Container;
 
 /**
  * Project: Lena
@@ -14,15 +14,15 @@ class BaseController
 {
 
     /**
-     * @var App
+     * @var Container
      */
     public $app;
 
     /**
      * BaseController constructor.
-     * @param App $app
+     * @param Container $app
      */
-    public function __construct(App $app)
+    public function __construct(Container $app)
     {
         $this->app = $app;
     }

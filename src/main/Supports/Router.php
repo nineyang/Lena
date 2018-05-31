@@ -99,10 +99,10 @@ class Router
         $uri = $this->prefix . $uri;
         $newUri = preg_replace_callback('/{(\w+)}/i', function ($match) use ($uri, &$res) {
             $res[] = $match[1];
-            return '(\w+)';
+            return '([a-zA-Z0-9]+)';
         }, $uri);
         if ($res) {
-            $newUri = '/' . str_replace('/', '\/', $newUri) . '/';
+            $newUri = '/^' . str_replace('/', '\/', $newUri) . '$/';
         }
         $this->setReplace($uri, $newUri);
         return $res;

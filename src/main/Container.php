@@ -69,6 +69,14 @@ class Container implements ArrayAccess, ContainerInterface
     }
 
     /**
+     * @return Resolve
+     */
+    public function getResolve()
+    {
+        return $this->resolve;
+    }
+
+    /**
      * @param $key
      * @param $bind
      * @param bool $share
@@ -77,7 +85,7 @@ class Container implements ArrayAccess, ContainerInterface
     public function bind($key, $bind, $share = false)
     {
         $this->binds[$key] = compact("bind", "share");
-        return $this->make($key , $bind);
+        return $this->make($key, $bind);
     }
 
     /**
