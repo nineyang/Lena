@@ -13,7 +13,7 @@ use Lena\main\Http\Request;
 
 class Index extends BaseController
 {
-    public function index($id, $name)
+    public function index()
     {
 
     }

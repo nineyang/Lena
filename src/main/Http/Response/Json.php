@@ -11,8 +11,8 @@ namespace Lena\main\Http\Response;
 
 class Json extends Response
 {
-    public function response()
+    public static function response()
     {
-        // TODO: Implement response() method.
+
     }
 }

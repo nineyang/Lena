@@ -34,7 +34,7 @@ class App
      */
     public function __construct($basePath = null)
     {
-//        $this->initWhoops();
+        $this->initWhoops();
         $this->basePath = $basePath;
         if (is_null($this->container)) {
             $this->container = new Container($basePath);
@@ -88,8 +88,8 @@ class App
         if ($controllerClass = Util::checkClassExists($controller, 'controllers')) {
             if (method_exists($controllerClass, $action)) {
                 $response = $this->container->getResolve()->handler($controllerClass, $action, array_combine($info['params'],
-                    $info['matched']));
-                var_dump($response);
+                    $info['matched'] ?? []));
+
             }
         }
     }

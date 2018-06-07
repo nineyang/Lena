@@ -68,11 +68,9 @@ class Resolve
         $this->args = $args;
         if (!is_null($method)) {
             return $this->handlerMethod($value, $method);
-        }
-        if ($value instanceof Closure) {
+        } elseif ($value instanceof Closure) {
             return $this->handlerClosure($value);
-        }
-        if (class_exists($value)) {
+        } elseif (class_exists($value)) {
             return $this->handlerClass($value);
         }
 
@@ -138,8 +136,13 @@ class Resolve
         if ($class->getClass()->name == get_class($this->container)) {
             return $this->container;
         }
-        
-        return $this->container[$class->getName()];
+
+        $className = $class->getName();
+        if ($this->container->has($className)) {
+            return $this->container[$className];
+        }
+
+        return $class->getClass()->newInstance();
     }
 
     /**
@@ -151,13 +154,11 @@ class Resolve
     {
         if ($this->existsArg($param->name)) {
             return $this->getArg($param->name);
-        }
-
-        if ($param->isDefaultValueAvailable()) {
+        } elseif ($param->isDefaultValueAvailable()) {
             return $param->getDefaultValue();
         }
 
-        throw new Exception("this prams has no default value.");
+        throw new Exception("this params has no default value.");
     }
 
 }
