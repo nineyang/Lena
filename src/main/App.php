@@ -34,7 +34,7 @@ class App
      */
     public function __construct($basePath = null)
     {
-        $this->initWhoops();
+//        $this->initWhoops();
         $this->basePath = $basePath;
         if (is_null($this->container)) {
             $this->container = new Container($basePath);

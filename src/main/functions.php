@@ -24,15 +24,15 @@ if (!function_exists("dd")) {
 }
 
 if (!function_exists("view")) {
-    function view($template, ...$values)
+    function view($template, array $values)
     {
-
+        return \Lena\main\Http\Response\View::response($template, $values);
     }
 }
 
 if (!function_exists("json")) {
     function json(array $value)
     {
-
+        return \Lena\main\Http\Response\Json::response($value);
     }
 }

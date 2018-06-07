@@ -11,8 +11,12 @@ namespace Lena\main\Http\Response;
 
 class Json extends Response
 {
-    public static function response()
-    {
 
+    /**
+     * @param array $value
+     */
+    public static function response(array $value)
+    {
+        echo json_encode($value);
     }
 }

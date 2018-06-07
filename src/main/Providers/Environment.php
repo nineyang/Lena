@@ -29,7 +29,10 @@ class Environment extends AbstractProvider
         if (file_exists($file)) {
 
             $handler = fopen($file, 'r');
+
             while (($line = fgets($handler)) !== false) {
+                $line = trim($line);
+                if ($line == '') continue;
                 putenv($line);
                 list($key, $value) = explode("=", $line);
                 $this->cache[$key] = $value;

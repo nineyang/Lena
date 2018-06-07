@@ -1,8 +1,11 @@
-## todo
-1. Request
-2. Response
-3. Template
-4. ORM
-5. Cache
-6. Config
-7. Swoole
+## Use
+
+在项目根目录下执行:
+```
+php lena
+```
+
+访问:
+```
+localhost:8889
+```

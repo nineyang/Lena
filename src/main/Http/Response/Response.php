@@ -12,6 +12,12 @@ use Psr\Http\Message\StreamInterface;
  */
 abstract class Response implements ResponseInterface
 {
+
+    /**
+     * @var string
+     */
+    const ROOT_PATH = __DIR__ . '/../../../../';
+
     /**
      * @return mixed
      */
