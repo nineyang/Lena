@@ -31,7 +31,7 @@ class View extends Response
         }
         $loader = new Twig_Loader_Filesystem($path);
         $options = [];
-        if (getenv("TEMPLATE_CACHE")) {
+        if (getenv("TEMPLATE_CACHE") == 'true') {
             $options['cache'] = static::ROOT_PATH . '/cache';
         }
         $twig = new Twig_Environment($loader, $options);

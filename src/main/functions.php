@@ -36,3 +36,10 @@ if (!function_exists("json")) {
         return \Lena\main\Http\Response\Json::response($value);
     }
 }
+
+if (!function_exists("abort")) {
+    function abort(int $statusCode)
+    {
+
+    }
+}

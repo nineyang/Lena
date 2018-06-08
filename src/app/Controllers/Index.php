@@ -13,9 +13,10 @@ use Lena\main\Http\Request;
 
 class Index extends BaseController
 {
-    public function index()
+
+    public function index(Request $request)
     {
-        return view("index" , ['name' => 'nine']);
+        return view("index", ['name' => $request->get('name')]);
     }
 
     public function info($name, $age)
@@ -25,7 +26,6 @@ class Index extends BaseController
 
     public function user(Request $request, $name)
     {
-        var_dump($request->get('name'));
-        return $name;
+
     }
 }
