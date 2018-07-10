@@ -9,19 +9,31 @@
 namespace Lena\app\Controllers;
 
 
+use Lena\app\Models\User;
+use Lena\main\Container;
 use Lena\main\Http\Request;
 
 class Index extends BaseController
 {
 
-    public function index(Request $request)
+    public function __construct(Container $app , User $user)
     {
-        return view("index", ['name' => $request->get('name')]);
+        parent::__construct($app);
     }
 
-    public function info($name, $age)
+    public function index(Request $request)
     {
 
+        return json(['nine' => 'aaa']);
+    }
+
+    /**
+     * @param $name
+     * @param $age
+     */
+    public function info($name, $age, Request $request)
+    {
+        return view('index', compact('name'));
     }
 
     public function user(Request $request, $name)

@@ -17,6 +17,11 @@ class Json extends Response
      */
     public static function response(array $value)
     {
+        ob_start();
+
         echo json_encode($value);
+
+        ob_end_flush();
+
     }
 }

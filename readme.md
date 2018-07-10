@@ -17,3 +17,4 @@ localhost:8889
 2. add orm
 3. add session & cookie
 4. abort
+5. require swoole
