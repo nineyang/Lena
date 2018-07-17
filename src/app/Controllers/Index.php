@@ -16,14 +16,13 @@ use Lena\main\Http\Request;
 class Index extends BaseController
 {
 
-    public function __construct(Container $app , User $user)
+    public function __construct(Container $app, User $user)
     {
         parent::__construct($app);
     }
 
     public function index(Request $request)
     {
-
         return json(['nine' => 'aaa']);
     }
 

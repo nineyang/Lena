@@ -12,6 +12,7 @@ use ArrayAccess;
 use dd\Dump;
 use Lena\main\Providers\Config;
 use Lena\main\Providers\Environment;
+use Lena\main\Providers\Logger;
 use Lena\main\Providers\Route;
 use Psr\Container\ContainerInterface;
 use Closure;
@@ -32,7 +33,8 @@ class Container implements ArrayAccess, ContainerInterface
     private $defaultProviders = [
         'config' => Config::class,
         'route' => Route::class,
-        'env' => Environment::class
+        'env' => Environment::class,
+        'logger' => Logger::class
     ];
 
     /**
